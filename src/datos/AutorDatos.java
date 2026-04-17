@@ -29,4 +29,15 @@ public class AutorDatos {
         }
         return lista;
     }
+
+    public String obtenerNombreAutor(int id) {
+        String nombre = "";
+        String sql = "SELECT nombre FROM autor WHERE id_autor = ?";
+        try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) nombre = rs.getString("nombre");
+        } catch (SQLException e) { e.printStackTrace(); }
+        return nombre;
+    }
 }

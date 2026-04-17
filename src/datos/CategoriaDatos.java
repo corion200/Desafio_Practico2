@@ -30,4 +30,15 @@ public class CategoriaDatos {
         }
         return lista;
     }
+
+    public String obtenerNombreCategoria(int id) {
+        String nombre = "";
+        String sql = "SELECT nombre_categoria FROM categoria WHERE id_categoria = ?";
+        try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) nombre = rs.getString("nombre_categoria");
+        } catch (SQLException e) { e.printStackTrace(); }
+        return nombre;
+    }
 }
